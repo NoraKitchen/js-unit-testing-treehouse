@@ -1,0 +1,22 @@
+{
+  "name": "js-unit-testing-treehouse",
+  "version": "1.0.0",
+  "description": "\"# js-unit-testing-treehouse\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoraKitchen/js-unit-testing-treehouse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NoraKitchen/js-unit-testing-treehouse/issues"
+  },
+  "homepage": "https://github.com/NoraKitchen/js-unit-testing-treehouse#readme",
+  "devDependencies": {
+    "chai": "^3.5.0"
+  }
+}
