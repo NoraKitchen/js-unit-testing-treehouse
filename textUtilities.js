@@ -1,6 +1,8 @@
+//first example. this has code and chai tests in same file, usually don't do this way
+
 
 //doesn't want to use everything in chai, just takes the expect method
-//save as var chai = require('chai'); var expect = chai.expect;
+//short version of: var chai = require('chai'); var expect = chai.expect;
 var expect = require('chai').expect;
 
 //pass in value you want to use for comparison, and chain special chai methods to tell chai what you expect the value to be
@@ -11,11 +13,23 @@ var expect = require('chai').expect;
 
 //making a function to title case movies, this will test it with 'the great mouse detective'?
 
-function titleCase (title) {
-    return title;
+function titleCase(title) {
+    var words = title.split(" ");
+
+    var titleCasedWords = words.map(function(word){
+        return word[0].toUpperCase() + word.substring(1);
+    })
+
+
+    return titleCasedWords.join(" ");
 };
 
 
 
-//want it to be a string
+//order your tests smaller expectation 
 expect(titleCase('the great mouse detective')).to.be.a('string');
+expect(titleCase("a")).to.equal("A");
+expect(titleCase("vertigo")).to.equal("Vertigo");
+expect(titleCase('the great mouse detective')).to.equal("The Great Mouse Detective");
+
+
