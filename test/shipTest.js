@@ -3,57 +3,15 @@ var expect = require("chai").expect;
 describe("check if ship already present", function () {
     //import the function you will be testing ---checkForShip
     var checkForShip = require('../game_logic/ship_methods').checkForShip;
+    var layer;
 
-    it('should correctly report no ship at a given players coordinate', function () {
-
-        //make an example player obj to test with
-        var player = {
-            ships: [
-                {
-                    locations: [[0, 0]]
-                }
-            ]
-        }
-
-        expect(checkForShip(player, [9, 9])).to.be.false;
-    })
-
-    it('should correctly report a ship is present at given location', function () {
-
-        //make an example player obj to test with
-        var player = {
-            ships: [
-                {
-                    locations: [[0, 0]]
-                }
-            ]
-        }
-
-        expect(checkForShip(player, [0, 0])).to.deep.equal(player.ships[0]);
-    })
-
-    it('should handle ships located at more than one coordinate', function () {
-
-        //make an example player obj to test with
-        var player = {
-            ships: [
-                {
-                    locations: [[0, 0], [0, 1]]
-                }
-            ]
-        }
-
-        //normally you don't have more than one expectation here cause it might be unclear what it's trying to prove
-        //but for brevity this one is decently clear?
-        expect(checkForShip(player, [0, 1])).to.deep.equal(player.ships[0]);
-        expect(checkForShip(player, [0, 0])).to.deep.equal(player.ships[0]);
-        expect(checkForShip(player, [9, 9])).to.be.false;
-    })
-
-    it('should handle checking multiple ships', function () {
-
-        //make an example player obj to test with
-        var player = {
+    //before is a mocha method that runs before each of our test specs to set up any state they need
+    //previously we made a new player obj each time we did a spec, but we can just set it up once here
+    //beforeEach is similar, used below
+    //after and afterEach, used below, run at the end of the whole block, or at the end of each spec respectively
+        //i think these are used for 'teardown', but usually only needed if during your test you say started a server, made a database, or wrote files to your computer
+    before(function () {
+        player = {
             ships: [
                 {
                     locations: [[0, 0], [0, 1]]
@@ -66,6 +24,70 @@ describe("check if ship already present", function () {
                 }
             ]
         }
+    })
+
+    it('should correctly report no ship at a given players coordinate', function () {
+
+        //make an example player obj to test with
+        // var player = {
+        //     ships: [
+        //         {
+        //             locations: [[0, 0]]
+        //         }
+        //     ]
+        // }
+
+        expect(checkForShip(player, [9, 9])).to.be.false;
+    })
+
+    it('should correctly report a ship is present at given location', function () {
+
+        //make an example player obj to test with
+        // var player = {
+        //     ships: [
+        //         {
+        //             locations: [[0, 0]]
+        //         }
+        //     ]
+        // }
+
+        expect(checkForShip(player, [0, 0])).to.deep.equal(player.ships[0]);
+    })
+
+    it('should handle ships located at more than one coordinate', function () {
+
+        //make an example player obj to test with
+        // var player = {
+        //     ships: [
+        //         {
+        //             locations: [[0, 0], [0, 1]]
+        //         }
+        //     ]
+        // }
+
+        //normally you don't have more than one expectation here cause it might be unclear what it's trying to prove
+        //but for brevity this one is decently clear?
+        expect(checkForShip(player, [0, 1])).to.deep.equal(player.ships[0]);
+        expect(checkForShip(player, [0, 0])).to.deep.equal(player.ships[0]);
+        expect(checkForShip(player, [9, 9])).to.be.false;
+    })
+
+    it('should handle checking multiple ships', function () {
+
+        //make an example player obj to test with
+        // var player = {
+        //     ships: [
+        //         {
+        //             locations: [[0, 0], [0, 1]]
+        //         },
+        //         {
+        //             locations: [[1, 0], [1, 1]]
+        //         },
+        //         {
+        //             locations: [[2, 0], [2, 1], [2, 2], [2, 3]]
+        //         }
+        //     ]
+        // }
 
         expect(checkForShip(player, [0, 1])).to.deep.equal(player.ships[0]);
         expect(checkForShip(player, [0, 0])).to.deep.equal(player.ships[0]);
@@ -100,14 +122,10 @@ describe("damageShip", function () {
 
 describe("fire", function () {
     var fire = require("../game_logic/ship_methods").fire;
+    var player;
 
-    // it("should identify if firing coordinates hit a ship or not", function () {
-
-    // })
-
-    it("should record damage on given players ship at given coordinate", function () {
-
-        var player = {
+    beforeEach(function () {
+        player = {
             ships: [
                 {
                     locations: [[0, 0]],
@@ -115,6 +133,25 @@ describe("fire", function () {
                 }
             ]
         }
+    })
+
+    after(function(){
+        console.log("entire test suite completed")
+    })
+    afterEach(function(){
+        console.log("one unit test completed")
+    })
+
+    it("should record damage on given players ship at given coordinate", function () {
+
+        // var player = {
+        //     ships: [
+        //         {
+        //             locations: [[0, 0]],
+        //             damage: []
+        //         }
+        //     ]
+        // }
 
         fire(player, [0, 0]);
 
@@ -123,13 +160,13 @@ describe("fire", function () {
 
     it("ship should remain unscathed if not hit", function () {
 
-        var player = {
-            ships: [
-                {
-                    locations: [[0, 0]]
-                }
-            ]
-        }
+        // var player = {
+        //     ships: [
+        //         {
+        //             locations: [[0, 0]]
+        //         }
+        //     ]
+        // }
 
         fire(player, [1, 1]);
 
